@@ -1,64 +1,51 @@
-📦 Company Innovation Platform — Full Stack System
+# 📦 Company Innovation Platform — Full Stack System
+
 A full-featured platform for a Tanzanian company specializing in:
 
-Project Design & Implementation (ICT & Electronics)
+- Project Design & Implementation (ICT & Electronics)
+- Research, Book, and Report Writing
+- Online Learning System (LMS)
+- Digital & Physical Storefront
+- Client Portal with Project Tracking
+- Local Payment Gateway Integration: AzamPay, ZenoPay, Selcom
 
-Research, Book, and Report Writing
+## 📘 Table of Contents
 
-Online Learning System (LMS)
+- [📌 Project Overview](#-project-overview)
+- [🔧 Technologies Used](#-technologies-used)
+- [📁 Project Structure](#-project-structure)
+- [🚀 Getting Started](#-getting-started)
+- [🛠 Features](#-features)
+- [💳 Payment Integration](#-payment-integration)
+- [🧪 Testing](#-testing)
+- [📄 License](#-license)
 
-Digital & Physical Storefront
+## 📌 Project Overview
 
-Client Portal with Project Tracking
-
-Local Payment Gateway Integration: AzamPay, ZenoPay, Selcom
-
-📘 Table of Contents
-📌 Project Overview
-
-🔧 Technologies Used
-
-📁 Project Structure
-
-🚀 Getting Started
-
-🛠 Features
-
-💳 Payment Integration
-
-🧪 Testing
-
-📄 License
-
-📌 Project Overview
 This project is a multi-role platform that supports:
 
-Clients requesting custom ICT/Electronics/Research projects
+- **Clients** requesting custom ICT/Electronics/Research projects
+- Tracking progress with downloadable deliverables
+- **Students** purchasing and enrolling in online courses
+- **Admins** managing users, projects, courses, and orders
+- **Vendors** and internal team members handling content
+- Integration with Tanzanian mobile payment gateways
 
-Tracking progress with downloadable deliverables
+## 🔧 Technologies Used
 
-Students purchasing and enrolling in online courses
+| Layer       | Tech Stack                                    |
+|-------------|-----------------------------------------------|
+| Frontend    | React.js, Tailwind CSS, Axios, React Router   |
+| Backend     | Node.js, Express.js, REST API                 |
+| Database    | PostgreSQL, Sequelize ORM                     |
+| Auth        | JWT (Token-based Authentication)              |
+| File Storage| AWS S3 / Local FS                             |
+| Payments    | AzamPay API, ZenoPay API, Selcom API          |
+| Hosting     | Compatible with Railway, HostAfrica, Vercel   |
 
-Admins managing users, projects, courses, and orders
+## 📁 Project Structure
 
-Vendors and internal team members handling content
-
-Integration with Tanzanian mobile payment gateways
-
-🔧 Technologies Used
-Layer	Tech Stack
-Frontend	React.js, Tailwind CSS, Axios, React Router
-Backend	Node.js, Express.js, REST API
-Database	PostgreSQL, Sequelize ORM
-Auth	JWT (Token-based Authentication)
-File Storage	AWS S3 / Local FS
-Payments	AzamPay API, ZenoPay API, Selcom API
-Hosting	Compatible with Railway, HostAfrica, Vercel
-
-📁 Project Structure
-bash
-Copy
-Edit
+```bash
 /client             → React Frontend
   /src
     /components     → Shared UI components
@@ -73,22 +60,26 @@ Edit
   /middlewares      → Auth, error handling
   /utils            → Payment integration, file upload
   /config           → DB, env, and payment setup
-🚀 Getting Started
-1. Clone the Repository
-bash
-Copy
-Edit
+```
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/your-org/innovation-platform.git
 cd innovation-platform
-2. Environment Setup
-Ensure you have Node.js, PostgreSQL, and Jules (as your IDE) installed.
+```
 
-Create .env files in both /client and /server:
+### 2. Environment Setup
 
-/server/.env
-env
-Copy
-Edit
+Ensure you have Node.js and PostgreSQL installed.
+
+Create `.env` files in both `/client` and `/server`:
+
+**/server/.env**
+
+```env
 PORT=5000
 DB_HOST=localhost
 DB_USER=postgres
@@ -98,113 +89,122 @@ JWT_SECRET=your_jwt_secret
 AZAMPAY_API_KEY=your_key
 ZENOPAY_SECRET=your_secret
 SELCOM_KEY=your_key
-3. Install Dependencies
-Backend
-bash
-Copy
-Edit
+```
+
+**/client/.env**
+
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+### 3. Install Dependencies
+
+**Backend**
+
+```bash
 cd server
 npm install
-Frontend
-bash
-Copy
-Edit
+```
+
+**Frontend**
+
+```bash
 cd ../client
 npm install
-4. Run Development Servers
-bash
-Copy
-Edit
+```
+
+### 4. Run Development Servers
+
+```bash
 # In /server
 npm run dev
 
 # In /client
 npm start
-5. Database Setup
-Make sure PostgreSQL is running. Then in /server:
+```
 
-bash
-Copy
-Edit
+### 5. Database Setup
+
+Make sure PostgreSQL is running. Then in `/server`:
+
+```bash
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
-🛠 Features
-👥 User Roles
-Client
+```
 
-Admin
+## 🛠 Features
 
-Writer/Designer
+### 👥 User Roles
 
-Student
+- Client
+- Admin
+- Writer/Designer
+- Student
+- Instructor
 
-Instructor
+### 🧱 Core Modules
 
-🧱 Core Modules
-🔧 Project Management
-Client submits a project (with files)
+#### 🔧 Project Management
 
-Admin assigns team
+- Client submits a project (with files)
+- Admin assigns team
+- Feedback loop with file uploads
+- Project status tracker
+- Download progress reports or final chapters
 
-Feedback loop with file uploads
+#### 🎓 Learning (LMS)
 
-Project status tracker
+- Enroll & pay for courses
+- Watch video lessons
+- Take quizzes, download materials
+- Receive certificate after completion
 
-Download progress reports or final chapters
+#### 🛍️ E-Commerce Store
 
-🎓 Learning (LMS)
-Enroll & pay for courses
+- Shop electronics kits, books, templates
+- Add to cart, checkout via local payments
+- Download digital content post-purchase
 
-Watch video lessons
+## 💳 Payment Integration
 
-Take quizzes, download materials
-
-Receive certificate after completion
-
-🛍️ E-Commerce Store
-Shop electronics kits, books, templates
-
-Add to cart, checkout via local payments
-
-Download digital content post-purchase
-
-💳 Payment Integration
 All payments handled via secure, Tanzanian gateways:
 
-Gateway	Notes
-AzamPay	STK Push, QR Code, Web API
-ZenoPay	Wallets, Airtel/Tigo/Vodacom integrations
-Selcom	Mobile, Card, USSD, Bank
+| Gateway | Notes                                   |
+|---------|-----------------------------------------|
+| AzamPay | STK Push, QR Code, Web API              |
+| ZenoPay | Wallets, Airtel/Tigo/Vodacom integrations|
+| Selcom  | Mobile, Card, USSD, Bank                |
 
 Webhook handlers update payment status in real-time.
 
-🧪 Testing
+## 🧪 Testing
+
 Use Postman or Swagger for testing backend APIs.
-Sample test cases are provided in /server/tests.
+Sample test cases are provided in `/server/tests`.
 
 Run backend tests:
 
-bash
-Copy
-Edit
+```bash
+# in /server
 npm run test
-🛡 Security & Best Practices
-JWT-based auth with role-level access
+```
 
-Secure file uploads
+## 🛡 Security & Best Practices
 
-HTTPS recommended
+- JWT-based auth with role-level access
+- Secure file uploads
+- HTTPS recommended
+- CORS configured
+- Input validation and sanitization
 
-CORS configured
+## 📄 License
 
-Input validation and sanitization
-
-📄 License
 This project is licensed under the MIT License.
 
-📫 Contact
+## 📫 Contact
+
 For any questions or support:
 
-📧 Email: support@pritechvior.co.tz
-📞 Phone: +255 627147681
-🌍 Website: pritechvior.co.tz
+- 📧 Email: support@pritechvior.co.tz
+- 📞 Phone: +255 627147681
+- 🌍 Website: pritechvior.co.tz
