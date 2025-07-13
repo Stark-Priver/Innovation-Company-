@@ -9,10 +9,11 @@ const Register = () => {
     email: '',
     password: '',
     role: 'client',
+    department: '',
   });
   const history = useHistory();
 
-  const { firstName, lastName, email, password, role } = formData;
+  const { firstName, lastName, email, password, role, department } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -61,6 +62,14 @@ const Register = () => {
         value={password}
         onChange={onChange}
         minLength="6"
+      />
+      <input
+        type="text"
+        placeholder="Department"
+        name="department"
+        value={department}
+        onChange={onChange}
+        required
       />
       <input type="submit" value="Register" />
     </form>

@@ -1,11 +1,20 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import jwt_decode from 'jwt-decode';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = () => {
     const token = localStorage.getItem('token');
-    return token ? true : false;
+    if (token) {
+      try {
+        jwt_decode(token);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+    return false;
   };
 
   return (
