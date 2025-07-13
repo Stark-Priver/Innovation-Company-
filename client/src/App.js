@@ -2,9 +2,9 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  Routes,
   Link,
-  useHistory,
+  useNavigate,
 } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -21,12 +21,12 @@ const App = () => {
 };
 
 const Main = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    history.push('/login');
+    navigate('/login');
     window.location.reload();
   };
 
@@ -53,12 +53,20 @@ const Main = () => {
           )}
         </ul>
       </nav>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route
+          exact
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </>
   );
 };

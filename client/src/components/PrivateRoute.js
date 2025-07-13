@@ -1,14 +1,14 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ children }) => {
   const isAuthenticated = () => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        jwt_decode(token);
+        jwtDecode(token);
         return true;
       } catch (error) {
         return false;
@@ -17,22 +17,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     return false;
   };
 
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        !isAuthenticated() ? (
-          <Redirect to="/login" />
-        ) : (
-          <Component {...props} />
-        )
-      }
-    />
-  );
+  return isAuthenticated() ? children : <Navigate to="/login" />;
 };
 
 PrivateRoute.propTypes = {
-  component: PropTypes.elementType.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default PrivateRoute;
