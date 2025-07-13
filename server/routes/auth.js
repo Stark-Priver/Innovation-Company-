@@ -5,25 +5,37 @@ const jwt = require('jsonwebtoken');
 const db = require('../models');
 const { User } = db;
 
+const { Role, Department } = db;
+
 // Register
 router.post('/register', async (req, res) => {
-  const { firstName, lastName, email, password, role } = req.body;
+  const { firstName, lastName, email, password, role, department } = req.body;
   try {
     let user = await User.findOne({ where: { email } });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
     }
+    const roleRecord = await Role.findOne({ where: { name: role } });
+    const departmentRecord = await Department.findOne({ where: { name: department } });
+
+    if (!roleRecord || !departmentRecord) {
+      return res.status(400).json({ msg: 'Invalid role or department' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     user = await User.create({
       firstName,
       lastName,
       email,
       password: hashedPassword,
-      role,
+      roleId: roleRecord.id,
+      departmentId: departmentRecord.id,
     });
     const payload = {
       user: {
         id: user.id,
+        role: roleRecord.name,
+        department: departmentRecord.name,
       },
     };
     jwt.sign(
@@ -45,7 +57,13 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
-    let user = await User.findOne({ where: { email } });
+    let user = await User.findOne({
+      where: { email },
+      include: [
+        { model: Role, attributes: ['name'] },
+        { model: Department, attributes: ['name'] },
+      ],
+    });
     if (!user) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
@@ -56,6 +74,8 @@ router.post('/login', async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        role: user.Role.name,
+        department: user.Department.name,
       },
     };
     jwt.sign(
