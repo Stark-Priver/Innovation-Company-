@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
 const Login = () => {
@@ -9,7 +9,7 @@ const Login = () => {
     password: '',
   });
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { email, password } = formData;
 
@@ -21,7 +21,7 @@ const Login = () => {
     try {
       const res = await axios.post('/api/auth/login', formData);
       localStorage.setItem('token', res.data.token);
-      history.push('/dashboard');
+      navigate('/dashboard');
     } catch (err) {
       setError(err.response.data.msg);
     }

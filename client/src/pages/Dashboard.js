@@ -1,5 +1,5 @@
 import React from 'react';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import BursarDashboard from './BursarDashboard';
 import CeoDashboard from './CeoDashboard';
 import QualityAssuranceDashboard from './QualityAssuranceDashboard';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
 const Register = () => {
@@ -13,7 +13,7 @@ const Register = () => {
     department: '',
   });
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { firstName, lastName, email, password, role, department } = formData;
 
@@ -25,7 +25,7 @@ const Register = () => {
     try {
       const res = await axios.post('/api/auth/register', formData);
       localStorage.setItem('token', res.data.token);
-      history.push('/dashboard');
+      navigate('/dashboard');
     } catch (err) {
       setError(err.response.data.msg);
     }
