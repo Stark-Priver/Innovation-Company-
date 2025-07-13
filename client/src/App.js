@@ -6,7 +6,7 @@ import {
   Link,
   useNavigate,
 } from 'react-router-dom';
-import Home from './pages/Home';
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -32,29 +32,8 @@ const Main = () => {
 
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          {token ? (
-            <li>
-              <button onClick={handleLogout}>Logout</button>
-            </li>
-          ) : (
-            <>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </nav>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route
